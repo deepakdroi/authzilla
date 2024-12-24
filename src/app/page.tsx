@@ -3,38 +3,44 @@ import Padlock from "@/assets/images/rb_548.png";
 
 export default function Home() {
 	return (
-		<section className="text-gray-600 body-font bg-white dark:bg-slate-900">
-			<div className="container mx-auto flex md:px-24 md:py-10 md:flex-row flex-col items-center">
-				<div className="lg:flex-grow mt-5 md:mt-0   md:w-1.5/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-					<h1 className="text-2xl font-extrabold leading-9 tracking-tight mb-3 text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">
+		<section className="bg-white dark:bg-gray-900">
+			<div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+				<div className="mr-auto place-self-center lg:col-span-7">
+					<h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
 						Authzilla
 					</h1>
-					<p className="mb-8 md:pl-0  pl-2 pr-2 leading-relaxed dark:text-gray-300">
-						We take care of your authentication needs so you can focus on
-						<br></br>
-						building important features for your application.
+					<p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+						We take care of all your authentication and security needs so you
+						can focus on building important features for your ammazing
+						application.
 					</p>
-					<div className="flex justify-center">
-						<a
-							href="#"
-							className="inline-flex text-white bg-emerald-600 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded text-lg"
+					<a
+						href="/login"
+						className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+					>
+						Login
+						<svg
+							className="w-5 h-5 ml-2 -mr-1"
+							fill="currentColor"
+							viewBox="0 0 20 20"
+							xmlns="http://www.w3.org/2000/svg"
 						>
-							Start Exploring
-						</a>
-						<a
-							href="#"
-							className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
-						>
-							Read articles
-						</a>
-					</div>
+							<path
+								fill-rule="evenodd"
+								d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+								clip-rule="evenodd"
+							></path>
+						</svg>
+					</a>
+					<a
+						href="/signup"
+						className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+					>
+						Signup
+					</a>
 				</div>
-				<div className="  lg:max-w-lg lg:w-full mb-5 md:mb-0 md:w-1/2 w-3/6">
-					<Image
-						className="object-cover object-center rounded"
-						alt="hero"
-						src={Padlock}
-					/>
+				<div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+					<Image src={Padlock} alt="Logo" />
 				</div>
 			</div>
 		</section>
