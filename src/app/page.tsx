@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Padlock from "@/assets/images/rb_548.png";
+import Link from "next/link";
 
 export default function Home() {
 	return (
@@ -14,7 +15,7 @@ export default function Home() {
 						can focus on building important features for your ammazing
 						application.
 					</p>
-					<a
+					<Link
 						href="/login"
 						className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
 					>
@@ -31,13 +32,13 @@ export default function Home() {
 								clipRule="evenodd"
 							></path>
 						</svg>
-					</a>
-					<a
+					</Link>
+					<Link
 						href="/signup"
 						className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
 					>
 						Signup
-					</a>
+					</Link>
 				</div>
 				<div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
 					<Image src={Padlock} alt="Logo" />
