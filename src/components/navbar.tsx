@@ -8,7 +8,7 @@ export default function Navbar() {
 		<header>
 			<nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
 				<div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-					<Link href="" className="flex items-center">
+					<Link href="/" className="flex items-center">
 						<Image className="w-8 h-8 mr-2" src={Padlock} alt="logo" />
 						<span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
 							Authzilla
@@ -68,7 +68,7 @@ export default function Navbar() {
 						<ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
 							<li>
 								<Link
-									href=""
+									href="/"
 									className="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
 									aria-current="page"
 								>
