@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       }
 
       // hashing password using bcryptjs
-      // commit check
+      // commit check 2 rectified email
       const hashedPassword = await bcryptjs.hash(fields.password as string, 10);
 
       // Creates user
