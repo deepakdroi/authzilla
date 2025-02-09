@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
       }
 
       // hashing password using bcryptjs
+      // commit check
       const hashedPassword = await bcryptjs.hash(fields.password as string, 10);
 
       // Creates user
