@@ -4,21 +4,29 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Padlock from "@/assets/images/rb_548.png";
 import Link from "next/link";
-import { UserValidation } from "../../../utils/UserValidation";
-import formatErrorMessage from "../../../utils/errorMessageFormat";
+import { UserValidation } from "@/utils/UserValidation";
+import formatErrorMessage from "@/utils/errorMessageFormat";
+import axios from "axios";
 
 export default function Signup() {
   const [errorFields, setErrorFields] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorFields([]);
+    setErrorMessage([]);
+    setLoading(true);
+    setServerError(null);
+
     const formData = new FormData(e.currentTarget);
     const fields = Object.fromEntries(formData);
     console.log(fields);
 
     const validation = UserValidation.safeParse(fields);
-    // const errorFields: string[] = [];
-    // const errorMessages: string[] = [];
 
     if (!validation.success) {
       console.log(validation.error.flatten().fieldErrors);
@@ -27,8 +35,18 @@ export default function Signup() {
       );
       setErrorFields(errorFields);
       setErrorMessage(errorMessages);
-      // console.log(validation.error.flatten().fieldErrors);
+      setLoading(false);
     } else {
+      try {
+        const response = await axios.post("/api/signup", fields);
+        console.log(response.data);
+        setSuccess(true);
+      } catch (err) {
+        console.error(err);
+        setServerError("An error occurred while submitting the form.");
+      } finally {
+        setLoading(false);
+      }
     }
   };
   return (
@@ -175,9 +193,20 @@ export default function Signup() {
               <button
                 type="submit"
                 className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                disabled={loading}
               >
-                Create an account
+                {loading ? "Creating account..." : "Create an account"}
               </button>
+              {serverError && (
+                <p className="text-xs text-red-500 dark:text-red-400">
+                  {serverError}
+                </p>
+              )}
+              {success && (
+                <p className="text-xs text-green-500 dark:text-green-400">
+                  Account created successfully!
+                </p>
+              )}
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
                 <Link
