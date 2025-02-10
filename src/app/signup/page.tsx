@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default function Signup() {
   const [errorFields, setErrorFields] = useState<string[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -18,7 +18,7 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorFields([]);
-    setErrorMessage([]);
+    setErrorMessages([]);
     setLoading(true);
     setServerError(null);
 
@@ -34,7 +34,7 @@ export default function Signup() {
         validation.error.flatten().fieldErrors
       );
       setErrorFields(errorFields);
-      setErrorMessage(errorMessages);
+      setErrorMessages(errorMessages);
       setLoading(false);
     } else {
       try {
@@ -83,7 +83,7 @@ export default function Signup() {
               </div>
               {errorFields.includes("firstName") && (
                 <p className="text-xs text-red-500 dark:text-red-400">
-                  {errorMessage[errorFields.indexOf("firstName")]}
+                  {errorMessages[errorFields.indexOf("firstName")]}
                 </p>
               )}
               <div>
@@ -104,7 +104,7 @@ export default function Signup() {
               </div>
               {errorFields.includes("lastName") && (
                 <p className="text-xs text-red-500 dark:text-red-400">
-                  {errorMessage[errorFields.indexOf("lastName")]}
+                  {errorMessages[errorFields.indexOf("lastName")]}
                 </p>
               )}
               <div>
@@ -125,7 +125,7 @@ export default function Signup() {
               </div>
               {errorFields.includes("email") && (
                 <p className="text-xs text-red-500 dark:text-red-400">
-                  {errorMessage[errorFields.indexOf("email")]}
+                  {errorMessages[errorFields.indexOf("email")]}
                 </p>
               )}
               <div>
@@ -146,7 +146,7 @@ export default function Signup() {
               </div>
               {errorFields.includes("password") && (
                 <p className="text-xs text-red-500 dark:text-red-400">
-                  {errorMessage[errorFields.indexOf("password")]}
+                  {errorMessages[errorFields.indexOf("password")]}
                 </p>
               )}
               <div>
