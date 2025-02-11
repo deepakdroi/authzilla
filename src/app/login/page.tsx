@@ -11,6 +11,7 @@ export default function Login() {
   const [errorFields, setErrorFields] = useState<string[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,9 +36,29 @@ export default function Login() {
     } else {
       try {
         const response = await axios.post("/api/login", fields);
-      } catch (err) {
-        console.log(err);
-        setServerError("An error has occurred while logging in.");
+        if (response.data.error) {
+          setServerError(response.data.error);
+        }
+        setSuccess(true);
+      } catch (err: any) {
+        if (err.response.status === 400) {
+          console.log("Bad request: " + err.response.data.error);
+          setServerError(
+            err.response.data.error ||
+              "Bad request. Please check credentials before logging in."
+          );
+        } else if (err.response.status === 500) {
+          console.log("Internal server error: " + err.response.data.error);
+          setServerError(
+            err.response.data.error ||
+              "Internal server error. Please try again."
+          );
+        } else {
+          setServerError(
+            err.response.data.error ||
+              "An error occurred while trying to login."
+          );
+        }
       } finally {
         setLoading(false);
       }
@@ -138,6 +159,11 @@ export default function Login() {
               {serverError && (
                 <p className="text-xs text-red-500 dark:text-red-400">
                   {serverError}
+                </p>
+              )}
+              {success && (
+                <p className="text-xs text-green-500 dark:text-green-400">
+                  Success while logging in.
                 </p>
               )}
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
