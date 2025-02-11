@@ -7,6 +7,7 @@ import Link from "next/link";
 import { UserValidation } from "@/utils/UserValidation";
 import formatErrorMessage from "@/utils/errorMessageFormat";
 import axios from "axios";
+import { NextResponse } from "next/server";
 
 export default function Signup() {
   const [errorFields, setErrorFields] = useState<string[]>([]);
@@ -39,11 +40,29 @@ export default function Signup() {
     } else {
       try {
         const response = await axios.post("/api/signup", fields);
-        console.log(response.data);
+        if (response.data.error) {
+          console.log("error:", response.data.error);
+          setServerError(response.data.error);
+        }
         setSuccess(true);
-      } catch (err) {
-        console.error(err);
-        setServerError("An error occurred while submitting the form.");
+      } catch (err: any) {
+        if (err.response) {
+          if (err.response.status === 400) {
+            console.error("Bad Request:", err.response.data.error);
+            setServerError(
+              err.response.data.error || "Bad Request. Please check your input."
+            );
+          } else if (err.response.status === 500) {
+            console.error("Server Error:", err.response.data.error);
+            setServerError("Internal Server Error. Please try again later.");
+          } else {
+            console.error("Unexpected Error:", err.response.data.error);
+            setServerError("An unexpected error occurred.");
+          }
+        } else {
+          console.error("Error:", err.message);
+          setServerError("An error occurred while submitting the form.");
+        }
       } finally {
         setLoading(false);
       }

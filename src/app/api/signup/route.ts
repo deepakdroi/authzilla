@@ -22,20 +22,25 @@ export async function POST(req: NextRequest) {
       //Checks if user already exists
       const user = await prisma.user.findUnique({
         where: {
-          email: fields.email as string,
+          email: fields.email,
         },
       });
 
       if (user) {
+        console.log(user);
         return NextResponse.json(
           { error: "User already exists." },
           { status: 400 }
         );
       }
-
+      console.log("inside");
       // hashing password using bcryptjs
       // commit check 2 rectified email
-      const hashedPassword = await bcryptjs.hash(fields.password as string, 10);
+      const salt = await bcryptjs.genSalt(10);
+      const hashedPassword = await bcryptjs.hash(
+        fields.password as string,
+        salt
+      );
 
       // Creates user
       const newUser = await prisma.user.create({
