@@ -6,8 +6,10 @@ import Padlock from "@/assets/images/rb_548.png";
 import Link from "next/link";
 import formatErrorMessage from "@/utils/errorMessageFormat";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const router = useRouter();
   const [errorFields, setErrorFields] = useState<string[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,6 +40,11 @@ export default function Login() {
         const response = await axios.post("/api/login", fields);
         if (response.data.error) {
           setServerError(response.data.error);
+        }
+        if (response.data.success) {
+          console.log(response.data.success);
+          setSuccess(true);
+          router.push("/profile/test");
         }
         setSuccess(true);
       } catch (err: any) {

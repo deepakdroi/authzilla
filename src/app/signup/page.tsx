@@ -7,7 +7,7 @@ import Link from "next/link";
 import { UserValidation } from "@/utils/UserValidation";
 import formatErrorMessage from "@/utils/errorMessageFormat";
 import axios from "axios";
-import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 
 export default function Signup() {
   const [errorFields, setErrorFields] = useState<string[]>([]);
@@ -45,6 +45,7 @@ export default function Signup() {
           setServerError(response.data.error);
         }
         setSuccess(true);
+        redirect("/login");
       } catch (err: any) {
         if (err.response) {
           if (err.response.status === 400) {
