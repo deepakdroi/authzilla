@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { LoginSchema } from "@/lib/schemas/loginSchema";
 import { registerSchema, RegisterSchema } from "@/lib/schemas/registerSchema";
 import prisma from "@/utils/client";
@@ -50,6 +50,10 @@ export async function registerUser(
     console.log(error);
     return { status: "error", error: "An error occurred while creating user" };
   }
+}
+
+export async function signOutUser() {
+  await signOut({ redirectTo: "/" });
 }
 
 export async function signInUser(
