@@ -27,7 +27,7 @@ export default function Login() {
   const onSubmit = async (data: LoginSchema) => {
     const result = await signInUser(data);
     if (result.status === "success") {
-      router.push("/");
+      router.push("/securedpage");
     } else {
       console.log(result.error);
       toast.error(result.error as string);

@@ -11,8 +11,11 @@ import { EyeSlashFilledIcon } from "@/components/passwordVisibility/EyeSlashedFi
 import { EyeFilledIcon } from "@/components/passwordVisibility/EyeFilledIcon";
 import { registerUser } from "@/app/actions/authActions";
 import { SubmitButton } from "@/components/SubmitButton";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function Signup() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -28,7 +31,7 @@ export default function Signup() {
     const result = await registerUser(data);
     console.log(result);
     if (result.status === "success") {
-      console.log("user created successfully.");
+      router.push("/login");
     } else {
       if (Array.isArray(result.error)) {
         result.error.forEach((e) => {
@@ -39,9 +42,11 @@ export default function Signup() {
             | "email"
             | "password";
           setError(fieldName, { message: e.message });
+          toast.error(result.error as string);
         });
       } else {
         setError("root.serverError", { message: result.error });
+        toast.error(result.error as string);
       }
     }
   };
