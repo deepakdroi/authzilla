@@ -1,3 +1,3 @@
 export const publicRouts = ["/", "/unsecuredpage"];
 
-export const privateRoutes = ["/login", "/signup", "/securedpage"];
+export const privateRoutes = ["/login", "/signup"];
